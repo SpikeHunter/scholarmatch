@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarMatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="max-w-4xl mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4 text-center">🎓 ScholarMatch</h1>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl mb-3 font-semibold">Find your scholarship</h3>
+
+            <!-- Search inputs -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <input id="country" type="text" placeholder="Enter country" class="border p-2 rounded">
+                <input id="field" type="text" placeholder="Enter field of study" class="border p-2 rounded">
+                <input id="gpa" type="number" step="0.01" placeholder="Enter GPA" class="border p-2 rounded">
+            </div>
+
+            <!-- Search button -->
+            <button id="searchBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Search</button>
+
+            <!-- Results -->
+            <div id="results" class="mt-6"></div>
+        </div>
+    </div>
+
+    <!-- Correct script path -->
+    <script src="/static/script.js"></script>
+</body>
+</html>

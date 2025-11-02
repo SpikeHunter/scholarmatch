@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Turin Tech Excellence Scholarship",
+    "country": "Italy",
+    "field": "Computer Science",
+    "min_gpa": 3.5,
+    "link": "https://example.com/turin-scholarship"
+  },
+  {
+    "name": "Global STEM Award",
+    "country": "USA",
+    "field": "Engineering",
+    "min_gpa": 3.0,
+    "link": "https://example.com/stem-award"
+  },
+  {
+    "name": "Uzbekistan National Scholarship",
+    "country": "Uzbekistan",
+    "field": "Any",
+    "min_gpa": 2.8,
+    "link": "https://example.com/uzb-national"
+  }
+]
