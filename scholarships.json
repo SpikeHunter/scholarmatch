@@ -1,23 +1,32 @@
 [
-  {
-    "name": "Turin Tech Excellence Scholarship",
-    "country": "Italy",
-    "field": "Computer Science",
-    "min_gpa": 3.5,
-    "link": "https://example.com/turin-scholarship"
-  },
-  {
-    "name": "Global STEM Award",
-    "country": "USA",
-    "field": "Engineering",
-    "min_gpa": 3.0,
-    "link": "https://example.com/stem-award"
-  },
-  {
-    "name": "Uzbekistan National Scholarship",
-    "country": "Uzbekistan",
-    "field": "Any",
-    "min_gpa": 2.8,
-    "link": "https://example.com/uzb-national"
-  }
+  {"name": "Chevening Scholarship", "country": "UK", "field": "Any", "min_gpa": 3.0, "link": "https://www.chevening.org"},
+  {"name": "Fulbright Program", "country": "USA", "field": "Any", "min_gpa": 3.5, "link": "https://foreign.fulbrightonline.org"},
+  {"name": "Erasmus Mundus", "country": "Europe", "field": "Any", "min_gpa": 3.0, "link": "https://erasmus-plus.ec.europa.eu"},
+  {"name": "DAAD Scholarship", "country": "Germany", "field": "Any", "min_gpa": 3.0, "link": "https://www.daad.de"},
+  {"name": "Korean Government Scholarship (KGSP)", "country": "South Korea", "field": "Any", "min_gpa": 2.8, "link": "https://www.studyinkorea.go.kr"},
+  {"name": "Japanese MEXT Scholarship", "country": "Japan", "field": "Any", "min_gpa": 3.0, "link": "https://www.mext.go.jp"},
+  {"name": "Chinese Government Scholarship (CSC)", "country": "China", "field": "Any", "min_gpa": 3.0, "link": "https://www.campuschina.org"},
+  {"name": "Turkish Government Scholarship (Turkiye Burslari)", "country": "Turkey", "field": "Any", "min_gpa": 2.5, "link": "https://turkiyeburslari.gov.tr"},
+  {"name": "Swiss Government Excellence Scholarship", "country": "Switzerland", "field": "Research", "min_gpa": 3.5, "link": "https://www.sbfi.admin.ch"},
+  {"name": "Australia Awards", "country": "Australia", "field": "Any", "min_gpa": 3.0, "link": "https://www.australiaawards.gov.au"},
+  {"name": "Holland Scholarship", "country": "Netherlands", "field": "Any", "min_gpa": 3.0, "link": "https://www.studyinholland.nl"},
+  {"name": "Gates Cambridge Scholarship", "country": "UK", "field": "Any", "min_gpa": 3.7, "link": "https://www.gatescambridge.org"},
+  {"name": "Rhodes Scholarship", "country": "UK", "field": "Any", "min_gpa": 3.7, "link": "https://www.rhodeshouse.ox.ac.uk"},
+  {"name": "MIT Presidential Fellowship", "country": "USA", "field": "Engineering", "min_gpa": 3.8, "link": "https://mit.edu"},
+  {"name": "Stanford Knight-Hennessy Scholarship", "country": "USA", "field": "Any", "min_gpa": 3.8, "link": "https://knight-hennessy.stanford.edu"},
+  {"name": "Aga Khan Foundation Scholarship", "country": "Various", "field": "Any", "min_gpa": 3.0, "link": "https://www.akdn.org/aga-khan-foundation"},
+  {"name": "Open Society University Network Fellowship", "country": "Various", "field": "Social Sciences", "min_gpa": 3.0, "link": "https://osun.org"},
+  {"name": "Hubert H. Humphrey Fellowship", "country": "USA", "field": "Public Policy", "min_gpa": 3.0, "link": "https://www.humphreyfellowship.org"},
+  {"name": "EDC (Education Development Center) Scholarship", "country": "Uzbekistan", "field": "Any", "min_gpa": 3.0, "link": "https://edc.uz"},
+  {"name": "El-Yurt Umidi Foundation", "country": "Uzbekistan", "field": "Any", "min_gpa": 3.5, "link": "https://eyu.uz"},
+  {"name": "Umid Foundation Scholarship", "country": "Uzbekistan", "field": "Any", "min_gpa": 3.3, "link": "https://umid.uz"},
+  {"name": "Presidential Scholarship of Uzbekistan", "country": "Uzbekistan", "field": "Any", "min_gpa": 3.5, "link": "https://president.uz"},
+  {"name": "ACCA Scholarship", "country": "UK", "field": "Finance", "min_gpa": 3.0, "link": "https://www.accaglobal.com"},
+  {"name": "Schwarzman Scholars", "country": "China", "field": "Leadership", "min_gpa": 3.5, "link": "https://www.schwarzmanscholars.org"},
+  {"name": "New Zealand Excellence Award", "country": "New Zealand", "field": "Any", "min_gpa": 3.0, "link": "https://www.studywithnewzealand.govt.nz"},
+  {"name": "Canada Vanier Graduate Scholarship", "country": "Canada", "field": "Research", "min_gpa": 3.7, "link": "https://vanier.gc.ca"},
+  {"name": "Boren Scholarship", "country": "USA", "field": "National Security", "min_gpa": 3.0, "link": "https://www.borenawards.org"},
+  {"name": "ADB-Japan Scholarship", "country": "Japan", "field": "Development", "min_gpa": 3.0, "link": "https://www.adb.org/work-with-us/careers/japan-scholarship-program"},
+  {"name": "Finland Government Scholarship", "country": "Finland", "field": "Any", "min_gpa": 3.0, "link": "https://www.finland.fi"},
+  {"name": "KAIST International Scholarship", "country": "South Korea", "field": "Science", "min_gpa": 3.2, "link": "https://www.kaist.ac.kr"}
 ]

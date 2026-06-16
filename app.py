@@ -85,7 +85,7 @@ def search():
         return jsonify({"error": "page and per_page must be positive integers."}), 400
 
     if gpa_value == "":
-        gpa = 4.0
+        gpa = None
     else:
         try:
             gpa = float(gpa_value)
@@ -98,21 +98,37 @@ def search():
     sort_clause = allowed_sort_fields[sort_by]
     offset = (page - 1) * per_page
 
+    # Build dynamic WHERE clause
+    where_clause = "WHERE 1=1"
+    params = []
+
+    if country:
+        where_clause += " AND country LIKE ?"
+        params.append(f"%{country}%")
+
+    if field:
+        where_clause += " AND field LIKE ?"
+        params.append(f"%{field}%")
+
+    if gpa is not None:
+        where_clause += " AND min_gpa <= ?"
+        params.append(gpa)
+
     try:
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
-        cur.execute("""
+        cur.execute(f"""
             SELECT COUNT(*) FROM scholarships
-            WHERE country LIKE ? AND field LIKE ? AND min_gpa <= ?
-        """, (f"%{country}%", f"%{field}%", gpa))
+            {where_clause}
+        """, params)
         total_results = cur.fetchone()[0]
 
         cur.execute(f"""
             SELECT id, name, country, field, min_gpa, link FROM scholarships
-            WHERE country LIKE ? AND field LIKE ? AND min_gpa <= ?
+            {where_clause}
             ORDER BY {sort_clause} ASC
             LIMIT ? OFFSET ?
-        """, (f"%{country}%", f"%{field}%", gpa, per_page, offset))
+        """, params + [per_page, offset])
         results = cur.fetchall()
         conn.close()
     except sqlite3.DatabaseError:
