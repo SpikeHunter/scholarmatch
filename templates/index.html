@@ -14,17 +14,28 @@
             <h3 class="text-xl mb-3 font-semibold">Find your scholarship</h3>
 
             <!-- Search inputs -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                 <input id="country" type="text" placeholder="Enter country" class="border p-2 rounded">
                 <input id="field" type="text" placeholder="Enter field of study" class="border p-2 rounded">
                 <input id="gpa" type="number" step="0.01" placeholder="Enter GPA" class="border p-2 rounded">
+                <select id="sortBy" class="border p-2 rounded">
+                    <option value="name">Sort by Name</option>
+                    <option value="country">Sort by Country</option>
+                    <option value="min_gpa">Sort by Min GPA</option>
+                </select>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button id="searchTab" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Search</button>
+                <button id="favoritesTab" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">My Favorites</button>
             </div>
 
             <!-- Search button -->
-            <button id="searchBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Search</button>
+            <button id="searchBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">Search</button>
 
             <!-- Results -->
             <div id="results" class="mt-6"></div>
+            <div id="pagination" class="mt-4 flex justify-center gap-2"></div>
         </div>
     </div>
 
