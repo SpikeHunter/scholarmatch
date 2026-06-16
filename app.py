@@ -15,7 +15,6 @@ Session(app)
 DB_PATH = Path(__file__).resolve().parent / "scholarmatch.db"
 JSON_PATH = Path(__file__).resolve().parent / "scholarships.json"
 
-@app.before_first_request
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
@@ -53,6 +52,10 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+# Initialize database on app startup
+with app.app_context():
+    init_db()
 
 @app.route("/")
 def index():
