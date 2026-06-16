@@ -1,5 +1,4 @@
 const searchBtn = document.querySelector("#searchBtn");
-const searchTab = document.querySelector("#searchTab");
 const favoritesTab = document.querySelector("#favoritesTab");
 const resultsDiv = document.querySelector("#results");
 const paginationDiv = document.querySelector("#pagination");
@@ -12,14 +11,14 @@ let currentView = "search";
 const setActiveTab = tab => {
     currentView = tab;
     if (tab === "search") {
-        searchTab.className = "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
+        searchBtn.className = "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
         favoritesTab.className = "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300";
         searchBtn.style.display = "inline-block";
         paginationDiv.style.display = "flex";
     } else {
-        searchTab.className = "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300";
+        searchBtn.className = "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300";
         favoritesTab.className = "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
-        searchBtn.style.display = "none";
+        searchBtn.style.display = "inline-block";
         paginationDiv.style.display = "none";
     }
 };
@@ -208,7 +207,6 @@ const saveFavorite = async id => {
 };
 
 searchBtn.addEventListener("click", () => performSearch(1));
-searchTab.addEventListener("click", () => performSearch(1));
 favoritesTab.addEventListener("click", loadFavorites);
 
 paginationDiv.addEventListener("click", event => {
