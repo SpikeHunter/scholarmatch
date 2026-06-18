@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ scholarship.name }} — Scholarship Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen py-10">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow">
+    <h1 class="text-3xl font-extrabold mb-4">{{ scholarship.name }}</h1>
+
+    <div class="flex items-center gap-4 mb-4">
+      <span class="text-sm text-gray-600">{{ scholarship.country }} · {{ scholarship.field }} · Min GPA: {{ scholarship.min_gpa }}</span>
+
+      {% if scholarship.status %}
+        <span class="ml-2 px-3 py-1 rounded-full text-sm font-semibold {% if scholarship.status == 'Open' %}bg-green-100 text-green-800{% elif scholarship.status == 'Closed' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+          {{ scholarship.status }}
+        </span>
+      {% endif %}
+    </div>
+
+    <div class="mb-6">
+      <h3 class="text-sm text-gray-500">Deadline</h3>
+      <p class="text-lg font-medium">{{ scholarship.deadline or 'TBA' }}</p>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="text-sm text-gray-500">Description</h3>
+      <p class="text-gray-700 whitespace-pre-line">{{ scholarship.description or 'No description available.' }}</p>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="text-sm text-gray-500">Eligible Countries</h3>
+      <p class="text-gray-700">{{ scholarship.eligible_countries or 'Not specified' }}</p>
+    </div>
+
+    <div class="flex gap-4">
+      <a href="{{ scholarship.link }}" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700">Apply Now</a>
+      <a href="{{ url_for('index') }}" class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Back to Search</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -64,12 +64,23 @@ const createScholarshipCard = (scholarship, showSave, isSaved = false) => {
         }
     }
     
+    let statusBadge = "";
+    if (scholarship.status) {
+        let cls = "bg-yellow-100 text-yellow-800";
+        if (scholarship.status === "Open") cls = "bg-green-100 text-green-800";
+        else if (scholarship.status === "Closed") cls = "bg-red-100 text-red-800";
+        statusBadge = `<span class="ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${cls}">${scholarship.status}</span>`;
+    }
+
+    const deadlineLine = scholarship.deadline ? `<p class="text-sm text-gray-600">Deadline: ${scholarship.deadline}</p>` : `<p class="text-sm text-gray-600">Deadline: TBA</p>`;
+
     card.innerHTML = `
         <div class="flex justify-between items-start gap-4">
             <div>
-                <h4 class="text-lg font-semibold">${scholarship.name}</h4>
+                <h4 class="text-lg font-semibold"><a href="/scholarship/${scholarship.id}" class="text-blue-800 hover:underline">${scholarship.name}</a>${statusBadge}</h4>
                 <p class="text-sm text-gray-700">${scholarship.country} — ${scholarship.field}</p>
                 <p class="text-sm text-gray-700">Min GPA: ${scholarship.min_gpa}</p>
+                ${deadlineLine}
                 <a href="${scholarship.link}" target="_blank" class="text-blue-600 underline">Learn more</a>
             </div>
             ${buttonHtml}

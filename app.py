@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, abort
 from flask_session import Session
 import json
 import os
@@ -31,6 +31,19 @@ def init_db():
         """
     )
 
+    # Ensure new columns exist without dropping existing data
+    cur.execute("PRAGMA table_info('scholarships')")
+    existing_cols = {row[1] for row in cur.fetchall()}
+    extra_cols = {
+        "deadline": "TEXT",
+        "status": "TEXT",
+        "description": "TEXT",
+        "eligible_countries": "TEXT",
+    }
+    for col, col_type in extra_cols.items():
+        if col not in existing_cols:
+            cur.execute(f"ALTER TABLE scholarships ADD COLUMN {col} {col_type}")
+
     with JSON_PATH.open("r", encoding="utf-8") as f:
         scholarships = json.load(f)
 
@@ -45,9 +58,20 @@ def init_db():
         if cur.fetchone():
             continue
 
+        # Insert with optional new fields if present in JSON (will be None if missing)
         cur.execute(
-            "INSERT INTO scholarships (name, country, field, min_gpa, link) VALUES (?, ?, ?, ?, ?)",
-            (name, country, field, min_gpa, link),
+            "INSERT INTO scholarships (name, country, field, min_gpa, link, deadline, status, description, eligible_countries) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                name,
+                country,
+                field,
+                min_gpa,
+                link,
+                scholarship.get("deadline"),
+                scholarship.get("status"),
+                scholarship.get("description"),
+                scholarship.get("eligible_countries"),
+            ),
         )
 
     conn.commit()
@@ -124,7 +148,7 @@ def search():
         total_results = cur.fetchone()[0]
 
         cur.execute(f"""
-            SELECT id, name, country, field, min_gpa, link FROM scholarships
+            SELECT id, name, country, field, min_gpa, link, status, deadline FROM scholarships
             {where_clause}
             ORDER BY {sort_clause} ASC
             LIMIT ? OFFSET ?
@@ -136,7 +160,7 @@ def search():
 
     total_pages = (total_results + per_page - 1) // per_page if total_results else 0
     scholarships = [
-        {"id": r[0], "name": r[1], "country": r[2], "field": r[3], "min_gpa": r[4], "link": r[5]}
+        {"id": r[0], "name": r[1], "country": r[2], "field": r[3], "min_gpa": r[4], "link": r[5], "status": r[6], "deadline": r[7]}
         for r in results
     ]
 
@@ -186,18 +210,37 @@ def favorites():
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
         placeholders = ",".join("?" for _ in favorites)
-        cur.execute(f"SELECT id, name, country, field, min_gpa, link FROM scholarships WHERE id IN ({placeholders})", tuple(favorites))
+        cur.execute(f"SELECT id, name, country, field, min_gpa, link, status, deadline FROM scholarships WHERE id IN ({placeholders})", tuple(favorites))
         results = cur.fetchall()
         conn.close()
     except sqlite3.DatabaseError:
         return jsonify({"error": "An internal database error occurred."}), 500
 
     scholarship_map = {
-        r[0]: {"id": r[0], "name": r[1], "country": r[2], "field": r[3], "min_gpa": r[4], "link": r[5]}
+        r[0]: {"id": r[0], "name": r[1], "country": r[2], "field": r[3], "min_gpa": r[4], "link": r[5], "status": r[6], "deadline": r[7]}
         for r in results
     }
     scholarships = [scholarship_map[fav_id] for fav_id in favorites if fav_id in scholarship_map]
     return jsonify({"results": scholarships})
+
+
+@app.route("/scholarship/<int:id>")
+def scholarship_detail(id):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM scholarships WHERE id = ?", (id,))
+        row = cur.fetchone()
+        conn.close()
+    except sqlite3.DatabaseError:
+        abort(500)
+
+    if not row:
+        abort(404)
+
+    scholarship = dict(row)
+    return render_template("detail.html", scholarship=scholarship)
 
 if __name__ == "__main__":
     from os import environ
