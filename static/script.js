@@ -123,11 +123,14 @@ const performSearch = async (page = 1) => {
     setActiveTab("search");
     const country = document.querySelector("#country").value.trim();
     const field = document.querySelector("#field").value.trim();
+    const degreeLevel = document.querySelector("#degreeLevel").value.trim();
+    const fundingType = document.querySelector("#fundingType").value.trim();
+    const englishLevel = document.querySelector("#englishLevel").value.trim();
     const gpa = document.querySelector("#gpa").value.trim();
     const sortBy = sortSelect.value;
 
-    if (!country && !field && !gpa) {
-        renderResults([], true, "Please fill at least one search field before searching.");
+    if (!country && !field && !degreeLevel && !fundingType && !englishLevel && !gpa) {
+        renderResults([], true, "Please select at least one search filter before searching.");
         paginationDiv.innerHTML = "";
         return;
     }
@@ -145,7 +148,7 @@ const performSearch = async (page = 1) => {
         const response = await fetch("/search", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ country, field, gpa, sort_by: sortBy, page, per_page: perPage })
+            body: JSON.stringify({ country, field, degree_level: degreeLevel, funding_type: fundingType, english_level: englishLevel, gpa, sort_by: sortBy, page, per_page: perPage })
         });
 
         const data = await response.json();

@@ -39,6 +39,11 @@ def init_db():
         "status": "TEXT",
         "description": "TEXT",
         "eligible_countries": "TEXT",
+        "english_level": "TEXT",
+        "age_limit": "TEXT",
+        "degree_level": "TEXT",
+        "funding_type": "TEXT",
+        "requirements": "TEXT",
     }
     for col, col_type in extra_cols.items():
         if col not in existing_cols:
@@ -60,7 +65,7 @@ def init_db():
 
         # Insert with optional new fields if present in JSON (will be None if missing)
         cur.execute(
-            "INSERT INTO scholarships (name, country, field, min_gpa, link, deadline, status, description, eligible_countries) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO scholarships (name, country, field, min_gpa, link, deadline, status, description, eligible_countries, english_level, age_limit, degree_level, funding_type, requirements) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 name,
                 country,
@@ -71,6 +76,11 @@ def init_db():
                 scholarship.get("status"),
                 scholarship.get("description"),
                 scholarship.get("eligible_countries"),
+                scholarship.get("english_level"),
+                scholarship.get("age_limit"),
+                scholarship.get("degree_level"),
+                scholarship.get("funding_type"),
+                scholarship.get("requirements"),
             ),
         )
 
@@ -90,6 +100,9 @@ def search():
     data = request.get_json() or {}
     country = data.get("country", "").strip()
     field = data.get("field", "").strip()
+    degree_level = data.get("degree_level", "").strip()
+    funding_type = data.get("funding_type", "").strip()
+    english_level = data.get("english_level", "").strip()
     gpa_value = data.get("gpa", "").strip()
     sort_by = data.get("sort_by", "name")
     page = data.get("page", 1)
@@ -137,6 +150,18 @@ def search():
     if gpa is not None:
         where_clause += " AND min_gpa <= ?"
         params.append(gpa)
+
+    if degree_level and degree_level != "All Levels":
+        where_clause += " AND degree_level = ?"
+        params.append(degree_level)
+
+    if funding_type and funding_type != "All Types":
+        where_clause += " AND funding_type = ?"
+        params.append(funding_type)
+
+    if english_level and english_level != "Any":
+        where_clause += " AND english_level LIKE ?"
+        params.append(f"%{english_level}%")
 
     try:
         conn = sqlite3.connect(DB_PATH)
